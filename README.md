@@ -89,3 +89,83 @@ Ini akan memulai server Flask di localhost:5000 dengan mode debugging diaktifkan
 - CORS diaktifkan untuk mengizinkan akses dari domain yang berbeda (misalnya, frontend React)
 - Pencatatan debug diaktifkan untuk membantu pemecahan masalah
 - Aplikasi ini dirancang untuk bekerja dengan struktur data MongoDB yang spesifik untuk pasar keuangan
+
+## Alur Web Dashboard
+
+Web dashboard Fokus Saham dibangun menggunakan Next.js dan menyediakan antarmuka pengguna yang interaktif untuk melihat data saham. Berikut adalah alur kerja dashboard:
+
+1. **Inisialisasi Aplikasi**: 
+   - Aplikasi Next.js dimuat dengan konfigurasi Tailwind CSS (`tailwind.config.ts`)
+   - Theme provider diinisialisasi di `components/theme-provider.tsx` untuk mendukung tema terang dan gelap
+   - Layout utama (`app/layout.tsx`) mengatur struktur dasar halaman dengan font Inter
+
+2. **Konfigurasi Komponen**:
+   - `app/page.tsx` bertindak sebagai halaman utama yang mengintegrasikan semua komponen UI
+   - Definisi tipe data (`DailyData`, `MonthlyData`, `YearlyData`, `FinancialData`) yang sesuai dengan struktur MongoDB
+   - Komponen sidebar (`components/ui/sidebar.tsx`) menyediakan navigasi responsif dengan status yang disimpan dalam cookie
+   - Komponen chart (`components/ui/chart.tsx`) menyediakan wrapper untuk Recharts
+
+3. **Interaksi dengan API**:
+   - Dashboard mengambil data dari endpoint API Flask melalui axios
+   - URL API (http://localhost:5000) didefinisikan dalam konfigurasi aplikasi
+   - Data dari berbagai koleksi MongoDB (berita, laporan keuangan, data saham) dipanggil melalui endpoint yang sesuai
+   - Data dummy disediakan untuk fallback ketika API tidak tersedia
+
+4. **Pengolahan dan Visualisasi Data**:
+   - Data diproses menggunakan hooks React (`useState`, `useEffect`)
+   - Library Plotly.js (diimpor secara dinamis) digunakan untuk visualisasi data kompleks
+   - Format data disesuaikan untuk visualisasi (harian, bulanan, tahunan)
+   - Penggunaan komponen UI seperti Card, Table, dan Tabs untuk menampilkan informasi terstruktur
+
+5. **Respons dan Adaptasi**:
+   - Hook `useIsMobile` mendeteksi ukuran layar untuk layout responsif
+   - Sidebar dapat dikolapskan untuk mengoptimalkan ruang pada layar kecil
+   - Sheet component digunakan untuk navigasi mobile yang lebih baik
+   - State aplikasi disimpan untuk mempertahankan pengalaman pengguna antar sesi
+
+## Fitur Web Dashboard
+
+### Komponen UI
+Dashboard menggunakan berbagai komponen UI termasuk:
+
+- **Tata Letak & Navigasi**:
+  - Sidebar responsif untuk navigasi utama
+  - Breadcrumb untuk navigasi hierarkis
+  - Layout responsif yang beradaptasi dengan ukuran layar
+
+- **Visualisasi Data**:
+  - Grafik interaktif untuk menampilkan tren harga saham
+  - Tabel data untuk menampilkan informasi saham terperinci
+  - Kartu ringkasan untuk metrik kunci dan statistik
+
+- **Input & Kontrol**:
+  - Dropdown dan select untuk memilih ticker saham
+  - Kalendar dan date picker untuk memfilter data berdasarkan rentang waktu
+  - Slider untuk menyesuaikan parameter visualisasi
+
+- **Notifikasi & Umpan Balik**:
+  - Indikator loading untuk operasi asinkron
+
+### Fitur Utama
+
+1. **Monitor Portofolio**:
+   - Tampilan portofolio saham pengguna
+   - Pelacakan performa saham    
+
+2. **Analisis Teknikal**:
+   - Grafik candlestick untuk analisis pola harga
+   - Indikator teknikal (Moving Average, RSI, MACD)
+   - Alat pembanding untuk membandingkan beberapa saham
+
+3. **Informasi Fundamental**:
+   - Akses ke laporan keuangan perusahaan
+   - Analisis rasio keuangan
+   - Informasi dividen dan pendapatan perusahaan
+
+4. **Berita & Pengumuman**:
+   - Feed berita terkait saham
+   - Pengumuman perusahaan dan siaran pers
+   - Integrasi analisis sentimen berita
+
+5. **Personalisasi**:
+   - Tema terang dan gelap yang dapat disesuaikan
