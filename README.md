@@ -48,7 +48,7 @@ Aplikasi ini terhubung ke instans MongoDB yang berjalan di `localhost:27017` dan
 
 ## Alur Aplikasi
 
-1. **Pengumpulan Data**: Data dikumpulkan dan disimpan dalam koleksi MongoDB (tidak ditampilkan dalam kode saat ini)
+1. **Pengumpulan Data**: Data dikumpulkan dan disimpan dalam koleksi MongoDB 
 2. **Server API**: Aplikasi Flask terhubung ke MongoDB dan mengekspos endpoint REST
 3. **Pengambilan Data**:
    - Ketika endpoint API dipanggil, aplikasi melakukan kueri ke koleksi MongoDB yang relevan
